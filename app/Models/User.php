@@ -46,4 +46,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function readAnnoucement(){
+        return $this->belongsToMany(Announcements::class,'announcement_read','user_id','announcement_id');
+    }
 }
