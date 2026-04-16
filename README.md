@@ -31,3 +31,10 @@ SQL query for Announcement List
 ```bash
 select `announcements`.*, `announcement_read`.`read_at` from `announcements` left join `announcement_read` on `announcements`.`id` = `announcement_read`.`announcement_id` and `announcement_read`.`user_id` = ?  
 ```
+
+## Question 3
+1. In announcement listing page there got 2 input fields
+2. You can search the Customer ID and Announcement ID.
+3. Click "Submit" button to record the customer read the announcement.
+4. if the Customer ID or Announcement ID is not found in system, will return erorr message to alert user.
+5. Once successful update the database, will have successful message and refresh the page with the new records.

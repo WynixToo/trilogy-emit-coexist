@@ -30,25 +30,38 @@
 
     <div class="row">
         <div class="form-group mb-0 col-md-3">
-            <label class='f-14 text-dark-grey' for="customers">Customers</label>
-            <select name="customer_selected" id="customer_selected" class="form-control select-picker" data-size="8">
-                <option value="">--</option>
+            <label class='f-14 text-dark-grey' for="customers">Customer ID</label>
+            {{--            <select name="customer_selected" id="customer_selected" class="form-control select-picker" data-size="8">--}}
+            {{--                <option value="">--</option>--}}
+            {{--                @foreach($customers as $customer)--}}
+            {{--                    <option value="{{$customer->id}}">{{$customer->name}}</option>--}}
+            {{--                @endforeach--}}
+            {{--            </select>--}}
+
+            <input list="customers" name="customer_selected" id="customer_selected" class="form-control">
+            <datalist id="customers">
                 @foreach($customers as $customer)
                     <option value="{{$customer->id}}">{{$customer->name}}</option>
                 @endforeach
-            </select>
+            </datalist>
         </div>
 
         <div class="form-group mb-0 col-md-3">
-            <label class='f-14 text-dark-grey' for="customers">Announcements</label>
-            <select name="announcement_selected" id="announcement_selected" class="form-control select-picker"
-                    data-size="8">
-                <option value="">--</option>
+            <label class='f-14 text-dark-grey' for="customers">Announcement ID</label>
+{{--            <select name="announcement_selected" id="announcement_selected" class="form-control select-picker"--}}
+{{--                    data-size="8">--}}
+{{--                <option value="">--</option>--}}
 
+{{--                @foreach($announcementList as $item)--}}
+{{--                    <option value="{{$item->id}}">{{$item->title}}</option>--}}
+{{--                @endforeach--}}
+{{--            </select>--}}
+            <input list="announcements" name="announcement_selected" id="announcement_selected" class="form-control">
+            <datalist id="announcements">
                 @foreach($announcementList as $item)
                     <option value="{{$item->id}}">{{$item->title}}</option>
                 @endforeach
-            </select>
+            </datalist>
         </div>
         <div class="form-group mb-0 col-md-3 align-middle">
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded"
@@ -145,14 +158,14 @@
             console.log(url);
             $.ajax({
                 url: url,
-                type:"PUT",
+                type: "PUT",
                 data: {
                     "_token": "{{ csrf_token() }}",
                     'customer_id': customer,
                     'announcement_id': annoucment
                 },
                 success: function (data) {
-                    if(data.status == 200){
+                    if (data.status == 200) {
                         $.notify({
                             title: 'Success',
                             message: 'Update successful'
@@ -160,14 +173,21 @@
                             type: 'success',
                             delay: 500
                         });
-                        window.setTimeout(refreshPage , 500);
+                        window.setTimeout(refreshPage, 500);
+                    }else{
+                        $.notify({
+                            message: data.message
+                        }, {
+                            type: 'danger',
+                            delay: 500
+                        });
                     }
                 }
             });
         }
     }
 
-    function refreshPage(){
+    function refreshPage() {
         location.reload();
     }
 </script>

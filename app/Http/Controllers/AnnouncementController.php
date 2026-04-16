@@ -69,6 +69,12 @@ class AnnouncementController extends Controller
     {
         $selectedUser = User::find($request->customer_id);
         $announcement = Announcements::find($id);
+        if(!isset($selectedUser) || !isset($announcement)){
+            return response()->json([
+                'status' => 500,
+                'message' => 'Customer or Announcement not found.'
+            ]);
+        }
         $selectedUser->readAnnoucement()->syncWithoutDetaching([
             $announcement->id => [
                 'read_at' => now(),
