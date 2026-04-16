@@ -21,10 +21,13 @@ class AnnouncementController extends Controller
         })
             ->select('announcements.*','announcement_read.read_at');
 
+        $customers = User::all('id','name');
+        $announcementList = Announcements::all('id','title');
+
         Log::info("Query Statement = ".$announcementsQuery->toSql());
         $announcements = $announcementsQuery->get();
 
-        return view('announcement-list',compact('announcements'));
+        return view('announcement-list',compact('announcements','customers','announcementList'));
     }
 
     /**
@@ -64,7 +67,19 @@ class AnnouncementController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $selectedUser = User::find($request->customer_id);
+        $announcement = Announcements::find($id);
+        $selectedUser->readAnnoucement()->syncWithoutDetaching([
+            $announcement->id => [
+                'read_at' => now(),
+                'created_at' => now(),
+                'updated_at' => now()
+            ]
+        ]);
+
+        return response()->json([
+            'status' => 200,
+        ]);
     }
 
     /**
