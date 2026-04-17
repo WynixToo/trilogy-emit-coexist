@@ -1,22 +1,22 @@
 
-## Question 1
+## Question 1 [10 mins]
 
 Step to execute
 1. Open the terminal.
 2. Change the directory to the project.
-```bash
+```
 cd /trilogy-emit-coexist
 ```
 3. run the command to create the table in database.
-```bash
+```
 ./vendor/bin/sail artisan migration
 ```
 4. run the command to insert the record into database.
-```bash
+```
 ./vendor/bin/sail artisan db:seed
 ```
 
-## Question 2
+## Question 2 [45 mins]
 1. Once the system is running, access the application via: http://localhost/auth/login
 2. The system comes with two pre-configured users. You may log in using either account.
 3. If incorrect credentials are entered, an error message will be displayed.
@@ -28,13 +28,53 @@ cd /trilogy-emit-coexist
 
 
 SQL query for Announcement List
-```bash
+```
 select `announcements`.*, `announcement_read`.`read_at` from `announcements` left join `announcement_read` on `announcements`.`id` = `announcement_read`.`announcement_id` and `announcement_read`.`user_id` = ?  
 ```
 
-## Question 3
+## Question 3 [30 mins]
 1. In announcement listing page there got 2 input fields
 2. You can search the Customer ID and Announcement ID.
 3. Click "Submit" button to record the customer read the announcement.
 4. if the Customer ID or Announcement ID is not found in system, will return erorr message to alert user.
 5. Once successful update the database, will have successful message and refresh the page with the new records.
+
+## Question 4 [1 hour]
+Step to setup the project enviroment
+1. Pull the code from Github. 
+2. Check out the main branch. 
+3. Open terminal / command prompt and change directory to the project.
+4. Create the folder for Laravel & boostrap cache
+```
+   mkdir -p storage/app/public storage/framework/cache storage/framework/sessions storage/framework/views storage/logs bootstrap/cache
+```
+5. Copy the .env.example and change name to .env
+6. Create new Database
+7. setup the .env 
+8. change the DB_CONNECTION to 'mysql', DB_HOST = "mysql"
+9. update the database authentication details 
+10. run the composer command inside the project folder.
+```
+composer install
+```
+11. Start the docker container with useing Sail command
+```
+./vendor/bin/sail up -d
+```
+12. run the command to generate the Application Key
+```angular2html
+/vendor/bin/sail artisan key:generate
+```
+13. Run the command to create database table
+```angular2html
+./vendor/bin/sail artisan migrate
+```
+14. Access the project with URL [http://localhost](http://localhost/)
+<br/>
+
+## AI Tools Usage
+- ChatGPT were used as a supporting aid during development.
+- Specifically, AI was utilized for:
+  - UI inspiration and refinement (Login & Announcement Listing pages)
+  - Exploring optimized database query and performance improvements
+  - Assisting with Docker/Sail environment setup
