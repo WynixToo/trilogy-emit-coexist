@@ -16,7 +16,7 @@ class UserController extends Controller
             return response()->json([
                 'status' => 200,
                 'message' => 'Login Successful',
-                'url' => route('announcement-list') // or your redirect URL
+                'url' => route('announcements.index') // or your redirect URL
             ]);
         } else {
             return response()->json([
