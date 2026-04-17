@@ -12,4 +12,6 @@ Route::get('/auth/login', function(){
 
 Route::post('/login',[\App\Http\Controllers\UserController::class,'login'])->name('login');
 Route::post('/logout',[\App\Http\Controllers\UserController::class,'logout'])->name('logout');
-Route::get('/announcement-list',[\App\Http\Controllers\AnnouncementController::class,'index'])->name('announcement-list');
+
+//Route::get('/announcement-list',[\App\Http\Controllers\AnnouncementController::class,'index'])->name('announcement-list');
+Route::resource('announcements', \App\Http\Controllers\AnnouncementController::class);
